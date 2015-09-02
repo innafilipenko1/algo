@@ -1,12 +1,18 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class AddNumberBase36Test {
 
-    AddNumberBase36 solution = new AddNumberBase36();
+    AddNumberBase36 solution;
+
+    @Before
+    public void before(){
+        solution = new AddNumberBase36();
+    }
 
     @Test
-    public void givenIAdd5And2ThenResultIs7() {
+    public void given5And2_WhenAdd_ThenResultIs7() {
 
         String actual = solution.add("5", "2");
         Assert.assertEquals("Result is not 7, but " + actual, "7", actual);
