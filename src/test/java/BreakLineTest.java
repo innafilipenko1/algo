@@ -31,5 +31,22 @@ public class BreakLineTest {
     }
 
 
+    @Test
+    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes2(){
+        String actual = solution.format("onetwo", 1);
+        Assert.assertEquals("o\nn\ne\nt\nw\no", actual);
+    }
+
+    @Test
+    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes3(){
+        String actual = solution.format("one two", 5);
+        Assert.assertEquals("one\ntwo", actual);
+    }
+
+    @Test
+    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes4(){
+        String actual = solution.format("firstword o'kay 78 139 secondword ", 5);
+        Assert.assertEquals("first\nword\no'kay\n78\n139\nsecon\ndword", actual);
+    }
 
 }
