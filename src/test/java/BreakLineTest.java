@@ -30,23 +30,16 @@ public class BreakLineTest {
         Assert.assertEquals("on\net\nwo", actual);
     }
 
-
     @Test
-    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes2(){
-        String actual = solution.format("onetwo", 1);
-        Assert.assertEquals("o\nn\ne\nt\nw\no", actual);
+    public void givenNextWordLongerThanWidth_WhenFormat_ThenNextWordIsWrapped(){
+        String actual = solution.format("12 two", 4);
+        Assert.assertEquals("12\ntwo", actual);
     }
 
     @Test
-    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes3(){
-        String actual = solution.format("one two", 5);
-        Assert.assertEquals("one\ntwo", actual);
-    }
-
-    @Test
-    public void givenWordFewTimesLongerThanWidth_WhenFormat_ThenWordIsCutSeveralTimes4(){
-        String actual = solution.format("firstword o'kay 78 139 secondword ", 5);
-        Assert.assertEquals("first\nword\no'kay\n78\n139\nsecon\ndword", actual);
+    public void givenSpaceBeforeAndAfterWordsInLine_WhenFormat_ThenSpaceIsRemovedIfFirstAndLastInNewLine(){
+        String actual = solution.format(" firstword o'kay 78 139 secondword ", 5);
+        Assert.assertEquals("first\nword\no'kay\n78\n139\nsecon\ndword\n", actual);
     }
 
 }

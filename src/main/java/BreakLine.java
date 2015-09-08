@@ -8,14 +8,15 @@ public class BreakLine {
 
         StringBuilder sb = new StringBuilder();
 
-        int lastSpace = -1;//no whitespace
-        int count = 0;
-        int additionalCharacters = 0;
+        int lastSpace = -1; //no whitespace
+        int count = 0; //for characters counting
+        int additionalCharacters = 0; //when \n is added
+        int countFromSpace = 0; //for characters counting appended after whitespace
 
 
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
-            if(count==0 && c == ' '){
+            if (count == 0 && c == ' ') {
                 additionalCharacters--;
                 continue;
             }
@@ -27,18 +28,25 @@ public class BreakLine {
                 lastSpace = i;
             }
 
-            if (count >= width && i < word.length() - 1) {
+            if (lastSpace > 0 && count < width) {
+                countFromSpace++;
+            }
+
+            if (width <= count && i < word.length()-1) {
                 if (lastSpace > 0) {
-                    sb.setCharAt(lastSpace+additionalCharacters, '\n');
+                    sb.setCharAt(lastSpace + additionalCharacters, '\n');
                 } else {
                     sb.append("\n");
                     additionalCharacters++;
                 }
                 lastSpace = -1;
-                count = 0;
+                count = countFromSpace;
+                countFromSpace = 0;
+
             }
         }
 
         return sb.toString();
+
     }
 }
