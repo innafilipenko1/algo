@@ -10,6 +10,8 @@ public class CSVParser {
 
 
         String[] rows = s.split("\n");
+        rows[0] = rows[0].replace("\"", "");
+
         String[] firstCells = rows[0].split(",");
         for (String cell : firstCells) {
             firstRow.add(cell);
@@ -37,13 +39,16 @@ public class CSVParser {
                 boolean atLastChar = (j == rows[i].length() - 1);
 
                 if (atLastChar) {
-                    if (c == ',')
+                    if (c == ',') {
+                        rows[i] = rows[i].replace("\"\"", "");
                         cells.add(rows[i].substring(start, rows[i].length() - 1));
+                    }
                     else {
+                        rows[i] = rows[i].replace("\"", "");
                         cells.add(rows[i].substring(start));
                     }
                 } else if (c == ',' && !insideComma) {
-
+                    rows[i] = rows[i].replace("\"", "");
                     cells.add(rows[i].substring(start, j));
                     start = j + 1;
                 }
@@ -77,7 +82,6 @@ public class CSVParser {
                 firstRow.add("");
             }
         }
-
 
         return table;
     }

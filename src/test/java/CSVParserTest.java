@@ -1,5 +1,6 @@
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,6 +13,12 @@ public class CSVParserTest {
     @Before
     public void createSolution() {
          solution = new CSVParser();
+    }
+
+    @Ignore
+    @Test
+    public void check(){
+        System.out.println("\"one,three\"\n<,\",\"\n,\n\"\"\"two\"\"\",");
     }
 
     @Test
@@ -115,5 +122,32 @@ public class CSVParserTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void givenSeveralWordsDividedByComma_WhenParse_ThenOneTableRowReturnedTEST1(){
+        List<List<String>> actual = solution.parse("\"one,three\"\n<,\",\"\n,\n\"\"\"two\"\"\",");
+
+        List<List<String>> expected = new ArrayList<>();
+        List<String> firstRow = new ArrayList<>();
+        firstRow.add("one, three");
+        List<String> secondRow = new ArrayList<>();
+        secondRow.add("<");
+        secondRow.add(",");
+        List<String> thirdRow = new ArrayList<>();
+        thirdRow.add("");
+        thirdRow.add("");
+        List<String> fourthRow = new ArrayList<>();
+        fourthRow.add("\"two\"");
+        fourthRow.add("");
+
+        expected.add(firstRow);
+        expected.add(secondRow);
+        expected.add(thirdRow);
+        expected.add(fourthRow);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+
 
 }
