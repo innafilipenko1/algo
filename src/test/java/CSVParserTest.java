@@ -19,6 +19,7 @@ public class CSVParserTest {
     @Test
     public void check(){
         System.out.println("\"one,three\"\n<,\",\"\n,\n\"\"\"two\"\"\",");
+
     }
 
     @Test
@@ -79,11 +80,13 @@ public class CSVParserTest {
 
     @Test
     public void givenSeveralWordsInOneCellEmptyRowAndWordInDoubleQuotes_WhenParse_ThenSeveralTableRowReturned(){
-        List<List<String>> actual = solution.parse("\"one,three\"\n<,\",\"\n,\n\"\"\"two\"\"\",");
+        List<List<String>> actual = solution.parse("\"one,three\",\n<,\",\"\n,\n\"\"\"two\"\"\",");
 
         List<List<String>> expected = new ArrayList<>();
         List<String> firstRow = new ArrayList<>();
-        firstRow.add("one, three");
+        String firstCell = "one,three";
+        firstRow.add(firstCell);
+        firstRow.add("");
         List<String> secondRow = new ArrayList<>();
         secondRow.add("<");
         secondRow.add(",");
@@ -99,7 +102,22 @@ public class CSVParserTest {
         expected.add(thirdRow);
         expected.add(fourthRow);
 
+        Assert.assertEquals(firstCell, actual.get(0).get(0));
+        Assert.assertEquals(2, actual.get(0).size());
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void givenBreakLineBetweenWordsInCell_WhenFormat_ThenWordsAreNotBreakenInRows(){
+        List<List<String>> actual = solution.parse("\"one\n,three\"");
+
+        List<List<String>> expected = new ArrayList<>();
+        List<String> firstRow = new ArrayList<>();
+        firstRow.add("one\n,three");
+
+        expected.add(firstRow);
+        Assert.assertEquals(expected, actual);
+
     }
 
 
